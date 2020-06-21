@@ -1,8 +1,8 @@
-import { FieldObject } from "types/types";
+import { Field } from "types/types";
 import React from "react";
 import { getLabelFromName } from "utils/string";
 
-const InputField = (props: FieldObject) => {
+const InputField = (props: Field) => {
   const {
     handleChange,
     max,
@@ -13,14 +13,17 @@ const InputField = (props: FieldObject) => {
     type,
     value,
   } = props;
+
+  const label = getLabelFromName(name);
   const requiredAsterix = required ? (
     <span style={{ color: "red" }}>*</span>
   ) : null;
+
   return (
     <div style={{ marginBottom: 10 }}>
       <div style={{ marginTop: 5, marginBottom: 5 }}>
         <label>
-          {getLabelFromName(name)}
+          {label}
           {requiredAsterix}
         </label>
       </div>

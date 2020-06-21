@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 export enum HttpMethods {
   GET = "GET",
   POST = "POST",
@@ -5,7 +7,7 @@ export enum HttpMethods {
   DELETE = "DELETE",
 }
 
-export interface FieldObject {
+export interface Field {
   name: string;
   type: string;
   max?: number;
@@ -13,12 +15,12 @@ export interface FieldObject {
   placeholder?: string;
   required?: boolean;
   value?: string;
-  handleChange?: () => void;
+  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface ApiExplorerProps {
   title: string;
   url: string;
   method: HttpMethods;
-  body: Array<FieldObject>;
+  body: Array<Field>;
 }
