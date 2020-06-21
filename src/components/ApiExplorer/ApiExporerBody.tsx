@@ -1,23 +1,19 @@
-import React, { ChangeEvent, useState } from "react";
+import { Field, FieldMap } from 'types/types';
+import React, { ChangeEvent, useState } from 'react';
 
-import { Field } from "types/types";
-import InputField from "components/InputField";
-import styles from "styles/ApiExplorer/ApiExplorerBody.module.css";
+import InputField from 'components/InputField';
+import styles from 'styles/ApiExplorer/ApiExplorerBody.module.css';
 
 interface ApiExplorerBodyProps {
   fields: Array<Field>;
-  onSendRequest: (args: any) => void;
-}
-
-interface FieldMap {
-  [index: string]: { value: string; isValid: boolean };
+  handleSendRequest: (args: any) => void;
 }
 
 const ApiExplorerBody = (props: ApiExplorerBodyProps) => {
-  const { fields } = props;
+  const { fields, handleSendRequest } = props;
   const initialBody: FieldMap = fields
     ? fields.reduce((acc: FieldMap, curr: Field) => {
-        acc[curr.name] = { value: "", isValid: curr.required ? false : true };
+        acc[curr.name] = { value: '', isValid: curr.required ? false : true };
         return acc;
       }, {} as FieldMap)
     : ({} as FieldMap);
@@ -26,7 +22,6 @@ const ApiExplorerBody = (props: ApiExplorerBodyProps) => {
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e && e.target) {
       const { name, value } = e.target;
-      console.log(e.target.validity.valid);
       const updatedField: FieldMap = {};
       updatedField[name] = { value, isValid: e.target.validity.valid };
 
@@ -48,9 +43,29 @@ const ApiExplorerBody = (props: ApiExplorerBodyProps) => {
   return (
     <form>
       {inputFields}
-      <button className={submit}>Send request</button>
+      <button
+        className={submit}
+        onClick={(e) => {
+          e.preventDefault();
+          handleSendRequest(body);
+        }}
+        disabled={!isValidForm(body)}
+      >
+        Send request
+      </button>
     </form>
   );
+};
+
+// TODO: TEST ME
+const isValidForm = (body: FieldMap) => {
+  for (const key in body) {
+    const obj = body[key];
+    if (!obj.isValid) {
+      return false;
+    }
+  }
+  return true;
 };
 
 export default ApiExplorerBody;
