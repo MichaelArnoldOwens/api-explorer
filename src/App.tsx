@@ -1,5 +1,5 @@
-import ApiExplorer, { HttpMethods } from './Components/ApiExplorer';
-
+import ApiExplorer from './components/ApiExplorer/ApiExplorer';
+import { HttpMethods } from "./types/types";
 import React from 'react';
 import styles from './styles/App.module.css';
 
