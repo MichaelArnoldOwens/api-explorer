@@ -13,7 +13,7 @@ export interface FieldObject {
   placeholder?: string;
   required?: boolean;
   value?: string;
-  handleChange: () => void;
+  handleChange?: () => void;
 }
 
 export interface ApiExplorerProps {
