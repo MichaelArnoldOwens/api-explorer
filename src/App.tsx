@@ -1,27 +1,40 @@
+import ApiExplorer, { HttpMethods } from './Components/ApiExplorer';
+
 import React from 'react';
-import logo from './logo.svg';
 import styles from './styles/App.module.css';
 
+const defaultData = {
+  title: 'Add new user',
+  url: 'https://jsonplaceholder.typicode.com/users',
+  method: HttpMethods.POST,
+  body: [
+    {
+      name: 'email',
+      type: 'email',
+      max: 24,
+      min: 3,
+    },
+    {
+      name: 'full-name',
+      type: 'text',
+      placeholder: 'John Doe',
+      required: true,
+    },
+    {
+      name: 'phone',
+      type: 'tel',
+      pattern: '[0-9]{3}-[0-9]{3}-[0-9]{4}',
+    },
+  ]
+};
+
 function App() {
-  console.log(styles)
-  const {App, AppLogo, AppHeader, AppLink} = styles;
+  const {title, url, method, body} = defaultData;
+  const {App} = styles;
 
   return (
     <div className={App}>
-      <header className={AppHeader}>
-        <img src={logo} className={AppLogo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className={AppLink}
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ApiExplorer title={title} url={url} method={method} body={body} />
     </div>
   );
 }
