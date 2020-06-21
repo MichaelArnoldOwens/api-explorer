@@ -12,6 +12,7 @@ export interface Field {
   type: string;
   max?: number;
   min?: number;
+  pattern?: string;
   placeholder?: string;
   required?: boolean;
   value?: string;

@@ -10,14 +10,14 @@ interface ApiExplorerBodyProps {
 }
 
 interface FieldMap {
-  [index: string]: string;
+  [index: string]: { value: string; isValid: boolean };
 }
 
 const ApiExplorerBody = (props: ApiExplorerBodyProps) => {
   const { fields } = props;
   const initialBody: FieldMap = fields
     ? fields.reduce((acc: FieldMap, curr: Field) => {
-        acc[curr.name] = "";
+        acc[curr.name] = { value: "", isValid: curr.required ? false : true };
         return acc;
       }, {} as FieldMap)
     : ({} as FieldMap);
@@ -26,8 +26,10 @@ const ApiExplorerBody = (props: ApiExplorerBodyProps) => {
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e && e.target) {
       const { name, value } = e.target;
+      console.log(e.target.validity.valid);
       const updatedField: FieldMap = {};
-      updatedField[name] = value;
+      updatedField[name] = { value, isValid: e.target.validity.valid };
+
       const newBody = { ...body, ...updatedField };
       setBody(newBody);
     }
@@ -37,7 +39,8 @@ const ApiExplorerBody = (props: ApiExplorerBodyProps) => {
     <InputField
       key={index}
       handleChange={handleOnChange}
-      value={body[field.name]}
+      value={body[field.name].value}
+      isValid={body[field.name].isValid}
       {...field}
     />
   ));
