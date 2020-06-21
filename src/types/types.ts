@@ -1,9 +1,8 @@
-
 export enum HttpMethods {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  DELETE = 'DELETE'
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
 }
 
 export interface FieldObject {
@@ -13,7 +12,10 @@ export interface FieldObject {
   min?: number;
   placeholder?: string;
   required?: boolean;
+  value?: string;
+  handleChange: () => void;
 }
+
 export interface ApiExplorerProps {
   title: string;
   url: string;
