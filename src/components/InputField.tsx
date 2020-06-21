@@ -1,5 +1,6 @@
 import { FieldObject } from "types/types";
 import React from "react";
+import { getLabelFromName } from "utils/string";
 
 const InputField = (props: FieldObject) => {
   const {
@@ -12,17 +13,29 @@ const InputField = (props: FieldObject) => {
     type,
     value,
   } = props;
+  const requiredAsterix = required ? (
+    <span style={{ color: "red" }}>*</span>
+  ) : null;
   return (
-    <input
-      onChange={handleChange}
-      max={max}
-      min={min}
-      name={name}
-      placeholder={placeholder}
-      required={required}
-      type={type}
-      value={value}
-    />
+    <div style={{ marginBottom: 10 }}>
+      <div style={{ marginTop: 5, marginBottom: 5 }}>
+        <label>
+          {getLabelFromName(name)}
+          {requiredAsterix}
+        </label>
+      </div>
+      <input
+        id={name}
+        onChange={handleChange}
+        max={max}
+        min={min}
+        name={name}
+        placeholder={placeholder}
+        required={required}
+        type={type}
+        value={value}
+      />
+    </div>
   );
 };
 

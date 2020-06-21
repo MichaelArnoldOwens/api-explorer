@@ -1,0 +1,9 @@
+.submit {
+  background-color: lightgray;
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  width: 125px;
+  height: 35px;
+  font-size: 12px;
+}

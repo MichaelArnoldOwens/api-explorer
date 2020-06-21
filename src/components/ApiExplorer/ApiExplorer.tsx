@@ -1,6 +1,7 @@
-import ApiExplorerBody from "./ApiExporerBody";
 import { ApiExplorerProps } from "types/types";
+import Body from "./ApiExporerBody";
 import React from "react";
+import Response from "./ApiExplorerResonse";
 import styles from "styles/ApiExplorer/ApiExplorer.module.css";
 
 const ApiExplorer = (props: ApiExplorerProps) => {
@@ -14,7 +15,8 @@ const ApiExplorer = (props: ApiExplorerProps) => {
       <h3>Base URL</h3>
       <div>{url}</div>
       <h3>Body</h3>
-      <ApiExplorerBody fields={body} />
+      <Body fields={body} />
+      <Response />
     </div>
   );
 };
