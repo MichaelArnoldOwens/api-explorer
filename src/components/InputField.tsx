@@ -1,7 +1,7 @@
-import { Field } from "types/types";
-import React from "react";
-import { getLabelFromName } from "utils/string";
-import styles from "styles/InputField.module.css";
+import { Field } from 'types/types';
+import React from 'react';
+import { getLabelFromName } from 'utils/string';
+import styles from 'styles/InputField.module.css';
 interface InputFieldProps extends Field {
   isValid: boolean;
 }
@@ -23,7 +23,7 @@ const InputField = (props: InputFieldProps) => {
 
   const label = getLabelFromName(name);
   const requiredAsterix = required ? (
-    <span style={{ color: "red" }}>*</span>
+    <span style={{ color: 'red' }}>*</span>
   ) : null;
 
   const errorMessage = pattern ? (

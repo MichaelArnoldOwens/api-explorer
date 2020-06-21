@@ -1,10 +1,10 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent } from 'react';
 
 export enum HttpMethods {
-  GET = "GET",
-  POST = "POST",
-  PUT = "PUT",
-  DELETE = "DELETE",
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
 }
 
 export interface Field {
@@ -17,6 +17,10 @@ export interface Field {
   required?: boolean;
   value?: string;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface FieldMap {
+  [index: string]: { value: string; isValid: boolean };
 }
 
 export interface ApiExplorerProps {
