@@ -1,12 +1,17 @@
 import ApiExplorer from 'components/ApiExplorer/ApiExplorer';
-import { HttpMethods } from 'types/types';
 import React from 'react';
 import styles from 'styles/App.module.css';
+
+const defaultData2: any = {
+  title: 'Get users',
+  url: 'https://jsonplaceholder.typicode.com/users',
+  method: 'GET',
+};
 
 const defaultData = {
   title: 'Add new user',
   url: 'https://jsonplaceholder.typicode.com/users',
-  method: HttpMethods.POST, // according to the api docs above this url does not support POST opperation; I assume this should gracefully handle the error
+  method: 'POST', // NOTE: this endpoint is not documented in jsonplaceholder, but it works!
   body: [
     {
       name: 'email',
@@ -35,6 +40,12 @@ function App() {
   return (
     <div className={App}>
       <ApiExplorer title={title} url={url} method={method} body={body} />
+      <ApiExplorer
+        title={defaultData2.title}
+        url={defaultData2.url}
+        method={defaultData2.method}
+        body={defaultData2.body}
+      />
     </div>
   );
 }

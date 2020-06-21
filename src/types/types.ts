@@ -22,10 +22,3 @@ export interface Field {
 export interface FieldMap {
   [index: string]: { value: string; isValid: boolean };
 }
-
-export interface ApiExplorerProps {
-  title: string;
-  url: string;
-  method: HttpMethods;
-  body: Array<Field>;
-}

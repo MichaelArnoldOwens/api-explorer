@@ -1,12 +1,20 @@
-import { ApiExplorerProps, FieldMap } from 'types/types';
+import { Field, FieldMap, HttpMethods } from 'types/types';
 import React, { useState } from 'react';
 
 import Body from './ApiExporerBody';
 import Response from './ApiExplorerResonse';
+import { isEmpty } from 'utils/object';
 import styles from 'styles/ApiExplorer/ApiExplorer.module.css';
 
 interface RequestBody {
   [index: string]: string;
+}
+
+interface ApiExplorerProps {
+  title: string;
+  url: string;
+  method: HttpMethods | string;
+  body?: Array<Field>;
 }
 
 const ApiExplorer = (props: ApiExplorerProps) => {
@@ -15,16 +23,29 @@ const ApiExplorer = (props: ApiExplorerProps) => {
   const { body, method, title, url } = props;
 
   const handleSendRequest = (inputs: FieldMap) => {
-    const requestBody = buildRequestBody(inputs);
-    fetch(url, {
+    const options: RequestInit = {
       method,
-      mode: 'cors',
       cache: 'no-cache',
-      body: JSON.stringify(requestBody),
-    })
-      .then((r) => r.json())
-      .then((json) => setResponse(JSON.stringify(json)))
-      .catch((e) => setResponse(JSON.stringify(e)));
+    };
+    if (!isEmpty(inputs)) {
+      const requestBody = buildRequestBody(inputs);
+      options.body = JSON.stringify(requestBody);
+    }
+
+    fetch(url, options)
+      .then((r) => {
+        const contentType = r.headers.get('content-type');
+        if (contentType && contentType.indexOf('application/json') !== -1) {
+          return r.json().then((json) => {
+            setResponse(JSON.stringify(json, undefined, 2));
+          });
+        } else {
+          return r.text().then((text) => {
+            setResponse(JSON.stringify(text));
+          });
+        }
+      })
+      .catch((e) => setResponse(`ERROR: ${JSON.stringify(e)}`));
   };
 
   return (
@@ -40,7 +61,7 @@ const ApiExplorer = (props: ApiExplorerProps) => {
   );
 };
 
-// TODO: test
+// TODO: TEST ME
 const buildRequestBody = (inputs: FieldMap): RequestBody => {
   let body: { [index: string]: string } = {};
   for (let key in inputs) {

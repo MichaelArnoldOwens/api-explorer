@@ -5,7 +5,7 @@ import InputField from 'components/InputField';
 import styles from 'styles/ApiExplorer/ApiExplorerBody.module.css';
 
 interface ApiExplorerBodyProps {
-  fields: Array<Field>;
+  fields?: Array<Field>;
   handleSendRequest: (args: any) => void;
 }
 
@@ -30,7 +30,7 @@ const ApiExplorerBody = (props: ApiExplorerBodyProps) => {
     }
   };
   const { submit } = styles;
-  const inputFields = fields.map((field, index) => (
+  const inputFields = fields?.map((field, index) => (
     <InputField
       key={index}
       handleChange={handleOnChange}
